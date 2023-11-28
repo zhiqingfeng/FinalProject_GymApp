@@ -1,0 +1,54 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org"
+xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+<head>
+    <title>GYM App</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<link type="text/css" rel="stylesheet" href="/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}" />
+</head>
+<body>
+<div class="container">
+	<div class="col-md-4">
+		<h1>Exercise list</h1>
+	</div>
+	<div class="col-md-4" style ="font-size: 20px">
+		Welcome! <span sec:authentication="name">Name</span>
+	</div>
+	
+	
+	<div class="col-md-4" style="padding:20px 0">
+		<form th:action="@{/logout}" method="post">
+			<input type="submit" value="Sign Out" class="btn btn-sm btn-danger"/>
+		</form>
+	</div>
+    <table class="table table-striped">
+    	<tbody>
+		<tr>
+		    <th>Name</th>
+		    <th>Description</th>
+		    <th>Duration</th>
+		    <th>Time</th>
+		    <th>Date</th>
+		    <th>Teacher</th>
+		    <th>Category</th>
+		    <th></th>
+		    <th></th>
+		</tr>  
+    	<tr th:each = "exercise : ${exercises}">
+    		<td th:text="${exercise.name}"></td>
+    		<td th:text="${exercise.description}"></td> 
+    		<td th:text="${exercise.duration}"></td>    	
+    		<td th:text="${exercise.time}"></td> 
+    		<td th:text="${exercise.date}"></td> 
+    		<td th:text="${exercise.teacher}"></td> 
+    		<td th:text="${exercise.category.name}"></td>
+    		
+    		<td sec:authorize="hasAuthority('ADMIN')"><a class="btn btn-danger" th:href="@{/delete/{id}(id=${exercise.id})}"> Delete </a></td>
+			<td sec:authorize="hasAuthority('ADMIN')"><a class="btn btn-success" th:href="@{/editexercise/{id}(id=${exercise.id})}">Edit</a></td>      	   		
+    	</tr>
+    	</tbody>
+     </table>    	
+     <td sec:authorize="hasAuthority('ADMIN')"><a href="/addexercise" class="btn btn-primary">Add Exercise</a></td>
+</div>
+</body>
+</html>
