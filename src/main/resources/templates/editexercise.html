@@ -1,0 +1,49 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>GYM App</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link type="text/css" rel="stylesheet" href="/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}" /> 
+    
+</head>
+<body>
+	<h1>Edit exercise</h1>
+	<div>
+		<form th:object="${exercise}" th:action="@{/update/{id}(id=${exercise.id})}"  action="#" method="post" >
+		  	
+		  	<label for="name">Name</label>
+			<input type="text" id="name" th:field="*{name}" />
+			<div style="clear: both; display: block; height: 10px;"></div>
+			
+		  	<label for="description">Description</label>
+			<input type="text" id="description" th:field="*{description}" />
+			<div style="clear: both; display: block; height: 10px;"></div>
+			
+		  	<label for="duration">Duration</label>
+			<input type="text" id="duration" th:field="*{duration}" />
+			<div style="clear: both; display: block; height: 10px;"></div>
+			
+			<label for="time">Time</label>
+			<input type="text" id="time" th:field="*{time}" />
+			<div style="clear: both; display: block; height: 10px;"></div>
+			
+			<label for="date">Date</label>
+			<input type="text" id="date" th:field="*{date}" />
+			<div style="clear: both; display: block; height: 10px;"></div>
+			
+			<label for="teacher">Teacher</label>
+			<input type="text" id="teacher" th:field="*{teacher}" />
+			<div style="clear: both; display: block; height: 10px;"></div>
+			
+			<div style="clear: both; display: block; height: 10px;"></div>	
+			<label for="categorys">Category</label>
+			<select id="categorys" th:field="*{category}" class="form-control">
+				<option th:each="category:${categorys}" th:value="${category.categoryid}" th:text="${category.name}">
+			</select>
+    		
+			<input class="btn btn-success" type="submit" value="Save"></input>
+			
+		</form>
+	</div>
+</body>
+</html>
